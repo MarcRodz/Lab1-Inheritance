@@ -27,5 +27,11 @@ public double getTerm(int n) throws IllegalStateException {
 	
 			double term = this.firstValue()*Math.pow(commonFactor, n-1 ) ;
 			return term;
-	}	
+	}
+public boolean equals(Progression o) {
+	if(this.toString().equals(o.toString())) {
+		return true;
+	}
+	return false;
+}
 }

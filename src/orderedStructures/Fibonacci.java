@@ -36,5 +36,10 @@ public double getTerm (int n) throws IndexOutOfBoundsException{
 		}
 		return(1/Math.sqrt(5)) *((Math.pow((1 + Math.sqrt(5))/2, n)) - (Math.pow(( 1- Math.sqrt(5))/2,n)));
 	}
-
+public boolean equals(Progression o) {
+	if(this.toString().equals(o.toString())) {
+		return true;
+	}
+	return false;
+}
 }

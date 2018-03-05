@@ -1,6 +1,8 @@
 package orderedStructures;
 
-public class Arithmetic extends Progression {
+import interfaces.Combinable;
+
+public class Arithmetic extends Progression implements Combinable {
 	private double commonDifference; 
 	
 	public Arithmetic(double firstValue, double commonDifference) { 
@@ -9,22 +11,45 @@ public class Arithmetic extends Progression {
 	}
 	
 	@Override
-	public double nextValue() throws IllegalStateException {
-		if(this.getTerm(1)!= this.firstValue())
-			throw new IllegalStateException("First value does not exist");
+	public double nextValue() {
 		current = current + commonDifference; 
 		return current;
 	}
+	
+	@Override
 	public String toString(){
-		return "Arith(" + (int) firstValue() + ","+(int) commonDifference + ")"; 
+		return "Arith(" + (int)super.firstValue() + ", " + (int)this.commonDifference + ")";
 	}
 	
-	
-public double getTerm(int n) throws IllegalStateException{
-		if (n<= 0)
-			throw new IllegalStateException("printAllTerms: Invalid argument value = " + n);
+	@Override
+	public double getTerm(int n){
+		if (n <= 0) 
+			throw new IndexOutOfBoundsException("printAllTerms: Invalid argument value = " + n);
 		
-		double value = this.firstValue() + (n-1)*commonDifference;
-		return value;
-}
+		double value = this.firstValue(); 
+		for (int i=1; i<n; i++) 
+			value = this.nextValue(); 
+		return value; 
+	}
+	
+	public boolean equals(Progression o) {
+		if(this.toString().equals(o.toString())) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public Progression add(Arithmetic aP) {
+		Progression newPr = new Arithmetic(this.firstValue()+aP.firstValue(), this.commonDifference+aP.commonDifference);
+		
+		return newPr;
+	}
+
+	@Override
+	public Progression substract(Arithmetic aP) {
+		Progression newPr = new Arithmetic(this.firstValue()-aP.firstValue(), this.commonDifference-aP.commonDifference);
+		return newPr;
+	}
+
 }
